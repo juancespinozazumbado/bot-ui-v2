@@ -1,66 +1,4 @@
-# name: Build and deploy Node.js app to Azure Web App - minibot-cliente
-
-# on:
-#   push:
-#     branches:
-#       - main
-#   workflow_dispatch:
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - uses: actions/checkout@v3
-
-#       - name: Set up Node.js version
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: '18.x'
-
-#       - name: npm install, build, and test
-#         run: |
-#           npm install
-#           npm run build --if-present
-#           npm run test --if-present
-
-#       - name: Zip artifact for deployment
-#         run: zip release.zip ./dist/* -r
-
-#       - name: Upload artifact for deployment job
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: node-app
-#           path: release.zip
-
-#   deploy:
-#     runs-on: ubuntu-latest
-#     needs: build
-#     environment:
-#       name: 'Production'
-#       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
-#     steps:
-#       - name: Download artifact from build job
-#         uses: actions/download-artifact@v4
-#         with:
-#           name: node-app
-
-#       - name: Unzip artifact for deployment
-#         run: unzip release.zip
-      
-#       - name: 'Deploy to Azure Web App'
-#         id: deploy-to-webapp
-#         uses: azure/webapps-deploy@v3
-#         with:
-#           app-name: ${{secrets.APP_SERVICE_NAME}}
-#           slot-name: 'Production'
-#           package: dist
-#           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-
-
-
-name: Build & Deploy React App to Azure
+name: Build and deploy Node.js app to Azure Web App - minibot-cliente
 
 on:
   push:
@@ -69,26 +7,53 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18.x'
+      - name: Set up Node.js version
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
 
-    - name: Install dependencies & build
-      run: |
-        npm ci
-        npm run build --if-present
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
 
-    - name: Deploy to Azure App Service
-      uses: azure/webapps-deploy@v3
-      with:
-        app-name: ${{ secrets.APP_SERVICE_NAME }}
-        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-        package: build/
+      - name: Zip artifact for deployment
+        run: zip release.zip ./dist/* -r
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app
+          path: release.zip
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: node-app
+
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
+      
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{secrets.APP_SERVICE_NAME}}
+          slot-name: 'Production'
+          package: dist
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}

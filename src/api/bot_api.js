@@ -1,5 +1,5 @@
 // API service to connect to external bot service
-const API_URL = "https://bots-api-g0anedbfgratfwc5.canadacentral-01.azurewebsites.net/api/chat/message" // import.meta.env.VITE_API_URL;
+const API_URL = "https://bots-api-g0anedbfgratfwc5.canadacentral-01.azurewebsites.net/" // import.meta.env.VITE_API_URL;
 
 export async function sendMessageToBot(message) {
   try {

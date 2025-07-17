@@ -18,7 +18,7 @@ const ChatInput = ({ onSend, loading }) => {
           className="chatbot-input chatbot-input-gray"
           value={input}
           onChange={e => setInput(e.target.value)}
-          placeholder="Type your message..."
+          placeholder="Ingresa un mensaje..."
           autoFocus
           onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) handleSend(e); }}
           disabled={loading}

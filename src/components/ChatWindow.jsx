@@ -46,7 +46,7 @@ function ChatWindow({ onClose }) {
       const botResponse = await sendMessageToBot(option);
       setMessages((msgs) => [...msgs, { message: botResponse, isUser: false }]);
     } catch {
-      setMessages((msgs) => [...msgs, { message: 'Error: Could not get response from bot.', isUser: false }]);
+      setMessages((msgs) => [...msgs, { message: 'Error: No fue posible conectar con el servidor.', isUser: false }]);
     }
     //   setMessages([]);
     //   localStorage.removeItem(LOCAL_STORAGE_KEY);
@@ -56,7 +56,7 @@ function ChatWindow({ onClose }) {
   return (
     <div className={`chatbot-container chat-float-window`}>
       <div className="chatbot-header chat-float-header" style={{justifyContent:'flex-start', position:'relative'}}>
-        <span style={{fontWeight:600, marginLeft: 18}}>TeKnowledge</span>
+        <span style={{fontWeight:600, marginLeft: 18}}>Xumtech</span>
         <div className="chat-float-header-icons" style={{position:'absolute', right:12, top:0, height:'100%', display:'flex', alignItems:'center'}}>
           <button className="chat-float-header-btn" title="Minimize" onClick={onClose}>
             <MinimizeIcon />
@@ -86,7 +86,7 @@ function ChatWindow({ onClose }) {
           className="chatbot-input"
           value={input}
           onChange={e => setInput(e.target.value)}
-          placeholder="Type your message..."
+          placeholder="Ingresa un mensaje..."
           autoFocus
         />
         <button className="chatbot-send-btn" type="submit" style={{padding:0, background:'none', border:'none', borderRadius:'50%', width:38, height:38, display:'flex', alignItems:'center', justifyContent:'center'}}>

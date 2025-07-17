@@ -7,8 +7,8 @@ const Home = () => {
     <div className="home-bg progressive-bg">
       <div className="home-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <img src={logo} alt="Logo" className="home-logo-large logo-shadow" />
-        <h1 className="home-title">Welcome to TeKnowledge</h1>
-        <p className="home-desc">Your smart assistant for learning and productivity.<br/>Start chatting with the bubble at the bottom right!</p>
+        <h1 className="home-title">Xumtech Experiencias que crean cambio</h1>
+        <p className="home-desc">Tu asistente inteligente para el aprendizaje y la productividad.<br/>¡Comienza a chatear con el burbuja en la esquina inferior derecha!</p>
       </div>
     </div>
   );
